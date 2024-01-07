@@ -1,28 +1,38 @@
-// Complete the js code
+// Function to generate elements
+function generateElements() {
+    const container = document.getElementById('container');
+    
+    // Generate 10000 elements
+    for (let i = 0; i < 10000; i++) {
+        const element = document.createElement('div');
+        element.textContent = `Element ${i + 1}`;
+        container.appendChild(element);
+    }
+}
 
-const limit = 50; // Heap memory usage limit in MB
-let elements = []; // Array to hold generated DOM elements
+// Function to remove elements
+function removeElements() {
+    const container = document.getElementById('container');
+    container.innerHTML = '';
+}
 
-// Function to generate DOM elements
-const generateElements = () => {
-  // complete the function
-  updateMemoryUsage();
-};
+// Event listeners for buttons
+document.getElementById('generateBtn').addEventListener('click', generateElements);
+document.getElementById('removeBtn').addEventListener('click', removeElements);
 
-// Function to remove DOM elements
-const removeElements = () => {
-  // complete the function
-  updateMemoryUsage();
-};
+// Track memory usage
+function trackMemoryUsage() {
+    const memoryLimit = 50 * 1024 * 1024; // 50 MB in bytes
 
-// Function to update memory usage display
-const updateMemoryUsage = () => {
-  // Complete this function
-};
+    const usedHeapSize = performance.memory.usedJSHeapSize;
 
-// Add event listeners to buttons
-document.getElementById("generate").addEventListener("click", generateElements);
-document.getElementById("remove").addEventListener("click", removeElements);
+    if (usedHeapSize > memoryLimit) {
+        alert("Memory usage has exceeded 50 MB. Please optimize your actions to reduce memory consumption.");
+    }
 
-// Set interval to update memory usage every second
-setInterval(updateMemoryUsage, 1000);
+    // Schedule the next check
+    setTimeout(trackMemoryUsage, 1000);
+}
+
+// Start tracking memory usage
+trackMemoryUsage();
